@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>A Little Birthday Surprise ❤️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#080710;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 20% 10%,#ff4f9a33,transparent 32%),radial-gradient(circle at 90% 80%,#8068ff33,transparent 35%),linear-gradient(145deg,#080710,#151020)}
+.wrap{width:min(100%,520px);margin:auto;padding:25px 17px 45px;text-align:center}
+.badge{display:inline-block;padding:8px 13px;border:1px solid #ffffff22;border-radius:50px;background:#ffffff0b;color:#ffd5e9;font-size:11px;letter-spacing:1.5px}
+h1{font-size:42px;line-height:1.03;margin:22px 0 8px;background:linear-gradient(90deg,#fff,#ffacd5,#c8bfff);-webkit-background-clip:text;color:transparent}
+.sub{font-size:14px;color:#aaa3b3;line-height:1.6}
+.card{margin-top:22px;padding:20px 14px;border:1px solid #ffffff14;border-radius:27px;background:#ffffff09;backdrop-filter:blur(15px);box-shadow:0 18px 60px #0008}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.box{padding:13px 3px;border-radius:16px;background:#0004;border:1px solid #ffffff0d}
+.num{font-size:25px;font-weight:800}.lab{font-size:8px;color:#98919e;letter-spacing:1px;margin-top:5px}
+.msg{margin-top:19px;font-size:15px;line-height:1.65}.uz{color:#ffd0e6}.en{color:#d8d0ff}
+.div{height:1px;background:#fff1;margin:19px 0}
+.scratch-title{font-size:21px;margin-bottom:6px}.hint{font-size:12px;color:#aaa3af;margin-bottom:14px}
+.scratch-box{position:relative;width:100%;height:190px;border-radius:22px;overflow:hidden;border:1px solid #ffffff18;background:linear-gradient(145deg,#20152b,#110d19)}
+#secret{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;flex-direction:column}
+#secret .big{font-size:29px;font-weight:800;background:linear-gradient(90deg,#ffacd6,#d0c2ff);-webkit-background-clip:text;color:transparent;margin-bottom:10px}
+#secret p{font-size:14px;line-height:1.65;color:#eee6ef}
+#scratch{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+button{margin-top:18px;border:0;border-radius:50px;padding:12px 20px;background:linear-gradient(90deg,#ff4f9a,#7865ff);color:white;font-weight:700}
+.footer{margin-top:23px;color:#716b78;font-size:11px}
+#birthday{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">A SECRET SURPRISE • FOR YOU ✨</div>
+  <h1 id="title">Birthday<br>Countdown</h1>
+  <p class="sub" id="intro">18 days until your special day. But there is a little surprise waiting below...</p>
+
+  <div class="card" id="mainCard">
+    <div class="count">
+      <div class="box"><div class="num" id="d">18</div><div class="lab">DAYS</div></div>
+      <div class="box"><div class="num" id="h">00</div><div class="lab">HOURS</div></div>
+      <div class="box"><div class="num" id="m">00</div><div class="lab">MINUTES</div></div>
+      <div class="box"><div class="num" id="s">00</div><div class="lab">SECONDS</div></div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="msg">
+      <div class="uz">Tug‘ilgan kuningizgacha oz vaqt qoldi. 🎂</div>
+      <div class="en">Only a little time is left until your birthday. ❤️</div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="scratch-title">✨ Scratch Your Surprise ✨</div>
+    <div class="hint">Barmog‘ingiz bilan sekin scratch qiling • Use your finger</div>
+
+    <div class="scratch-box">
+      <div id="secret">
+        <div class="big">You Are Special ❤️</div>
+        <p class="uz">Sizning tabassumingiz juda chiroyli. Har doim baxtli bo‘ling. 🌸</p>
+        <p class="en">Your smile is beautiful. Always stay happy, and never stop smiling. ✨</p>
+      </div>
+      <canvas id="scratch"></canvas>
+    </div>
+
+    <button onclick="reveal()">Reveal All ✨</button>
+  </div>
+
+  <div class="card" id="birthday">
+    <div style="font-size:54px">🎂💖✨</div>
+    <h2 style="font-size:29px;margin:12px 0">Tug‘ilgan kuningiz muborak!</h2>
+    <p class="msg">Happy Birthday! May your life be filled with happiness, beautiful moments and countless reasons to smile. ❤️</p>
+  </div>
+
+  <div class="footer">Made with ❤️ • A little surprise from someone who cares</div>
+</div>
+
+<script>
+const target=new Date("2026-10-19T00:00:00+05:30").getTime();
+const $=id=>document.getElementById(id);
+function pad(n){return String(n).padStart(2,"0")}
+function tick(){
+ let x=target-Date.now();
+ if(x<=0){$("mainCard").style.display="none";$("birthday").style.display="block";$("title").innerHTML="Happy<br>Birthday ❤️";$("intro").textContent="Today is your special day!";return}
+ $("d").textContent=Math.floor(x/86400000);
+ $("h").textContent=pad(Math.floor(x/3600000)%24);
+ $("m").textContent=pad(Math.floor(x/60000)%60);
+ $("s").textContent=pad(Math.floor(x/1000)%60);
+}
+tick();setInterval(tick,1000);
+
+/* Finger scratch card */
+const canvas=$("scratch"),box=canvas.parentElement,ctx=canvas.getContext("2d");
+let drawing=false,done=false,points=0;
+function resize(){
+ const r=box.getBoundingClientRect(),d=devicePixelRatio||1;
+ canvas.width=r.width*d;canvas.height=r.height*d;canvas.style.width=r.width+"px";canvas.style.height=r.height+"px";
+ ctx.setTransform(d,0,0,d,0,0);
+ ctx.fillStyle="#b5a7a0";ctx.fillRect(0,0,r.width,r.height);
+ ctx.fillStyle="#ffffff22";ctx.font="700 17px Arial";ctx.textAlign="center";ctx.fillText("SCRATCH HERE ✨",r.width/2,r.height/2);
+ ctx.globalCompositeOperation="source-over";
+}
+resize();addEventListener("resize",resize);
+function pos(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top}}
+function scratch(e){
+ if(!drawing)return;
+ e.preventDefault();const p=pos(e);
+ ctx.globalCompositeOperation="destination-out";ctx.beginPath();ctx.arc(p.x,p.y,22,0,Math.PI*2);ctx.fill();points++;
+ if(points%25===0)check();
+}
+function start(e){drawing=true;scratch(e)}
+function stop(){drawing=false}
+canvas.addEventListener("touchstart",start,{passive:false});
+canvas.addEventListener("touchmove",scratch,{passive:false});
+canvas.addEventListener("touchend",stop);
+canvas.addEventListener("pointerdown",start);canvas.addEventListener("pointermove",scratch);canvas.addEventListener("pointerup",stop);canvas.addEventListener("pointercancel",stop);
+function check(){
+ const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+ let transparent=0;
+ for(let i=3;i<data.length;i+=32) if(data[i]<30) transparent++;
+ if(transparent/(data.length/32)>.48) reveal();
+}
+function reveal(){
+ canvas.style.transition="opacity .6s";canvas.style.opacity="0";setTimeout(()=>canvas.style.display="none",650);
+}
+</script>
+</body>
+</html>
